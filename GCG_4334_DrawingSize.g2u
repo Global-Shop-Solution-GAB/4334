@@ -1,0 +1,190 @@
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+'program will display two custom textboxes on inventory master
+'these textboxes will display "drawing size" and "drawing rev"
+'these values are pulled from the INV EXTRA table, user fields 1 and 6 respectively
+
+'opening connection
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+'if the populate part hook fires
+F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+F.Intrinsic.Control.Case(10120)
+	'Make the hidden controls visible and usable 
+	F.Intrinsic.Control.CallSub(displaytextboxes)
+F.Intrinsic.Control.Case(10125)
+	'Populate existing part information
+	f.Intrinsic.Control.CallSub(addboxes)
+F.Intrinsic.Control.Case(10185)
+	'Save part information
+	f.Intrinsic.Control.CallSub(postsave)
+F.Intrinsic.Control.CaseElse
+	'Do nothing
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.Unload.Start
+F.Intrinsic.Control.SetErrorHandler("Unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'closing connection and ending program
+F.ODBC.Connection!conx.Close
+Function.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+Program.Sub.Unload.End
+
+Program.Sub.AddBoxes.Start
+F.Intrinsic.Control.SetErrorHandler("AddBoxes_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.sdrawingsize.Declare(string)
+v.Local.sdrawingrev.Declare(String)
+v.Local.ssql.Declare(String)
+
+'query for the drawing size and dawing rev
+f.Intrinsic.String.Build("Select USER6, User1 from INV_EXTRA where PART = '{0}' and REV = '{1}' and LOCATION = '{2}'",v.Passed.000007,v.Passed.000008,v.Passed.000009,v.Local.ssql)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst",V.Local.ssql)
+F.intrinsic.Control.If(V.ODBC.conx!rst.EOF,<>,True)
+	v.Passed.GAB-TEXT-1.Set(v.ODBC.conx!rst.FieldValTrim!USER6)
+	v.Passed.GAB-TEXT-2.Set(v.ODBC.conx!rst.FieldValTrim!USER1)
+f.Intrinsic.Control.EndIf
+f.ODBC.conx!rst.Close
+
+'call the unload
+f.Intrinsic.Control.CallSub(unload)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("AddBoxes_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.AddBoxes.End
+
+Program.Sub.PostSave.Start
+F.Intrinsic.Control.SetErrorHandler("PostSave_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(String)
+V.Local.iCount.Declare(Long)
+
+'update the information
+f.Intrinsic.String.Build("Select * from INV_EXTRA where PART = '{0}' and REV = '{1}' and LOCATION = '{2}'",v.Passed.000007,v.Passed.000008,v.Passed.000009,v.Local.ssql)
+F.ODBC.Connection!conx.OpenRecordsetRW("rst",V.Local.ssql)
+'if something is found update the table
+F.intrinsic.Control.If(V.ODBC.conx!rst.EOF,<>,True)
+	F.ODBC.conx!rst.Set!USER6(V.Passed.GAB-TEXT-1)
+	F.ODBC.conx!rst.Set!USER1(V.Passed.GAB-TEXT-2)	
+	f.ODBC.conx!rst.Update
+f.Intrinsic.Control.Else
+	'otherwise add a new record with the user information
+	f.ODBC.conx!rst.AddNew
+	F.ODBC.conx!rst.Set!USER6(V.Passed.GAB-TEXT-1)
+	F.ODBC.conx!rst.Set!USER1(V.Passed.GAB-TEXT-2)	
+	'Added by FEQ. Custom table does not allow null for any field and there is no default set up, so when creating a new entry, we save a space in all empty fields
+	F.ODBC.conx!rst.Set!USER2(" ")
+	F.ODBC.conx!rst.Set!USER3(" ")
+	F.ODBC.conx!rst.Set!USER4(" ")
+	F.ODBC.conx!rst.Set!USER5(" ")
+	F.Intrinsic.Control.For(V.Local.iCount, 7, 60, 1)
+		F.ODBC.conx!rst.Set!USER[V.Local.iCount](" ")
+	F.Intrinsic.Control.Next(V.Local.iCount)
+	F.ODBC.conx!rst.Set!PART(V.Passed.000007)
+	F.ODBC.conx!rst.Set!REV(V.Passed.000008)	
+	F.ODBC.conx!rst.Set!LOCATION(V.Passed.000009)
+	f.ODBC.conx!rst.Update
+f.Intrinsic.Control.EndIf
+f.ODBC.conx!rst.Close
+
+'clear text
+v.Passed.GAB-TEXT-1.Set("")
+v.Passed.GAB-TEXT-2.Set("")
+
+'call the unload sub
+f.Intrinsic.Control.CallSub(unload)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("PostSave_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.PostSave.End
+
+Program.Sub.DisplayTextboxes.Start
+F.Intrinsic.Control.SetErrorHandler("DisplayTextboxes_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'set the properties of the drawing size label
+V.Passed.GAB-LBL-1.Set("Drawing Size")
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PL",190)
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PT",112)
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PW",100)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1,"HIDE",0)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PL",190)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PT",130)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PW",110)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1,"LOCK",0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1,"HIDE",0)
+
+'set the properties of the drawing rev label
+V.Passed.GAB-LBL-2.Set("Drawing Rev")
+F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PL",320)
+F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PT",112)
+F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PW",110)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2,"HIDE",0)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PL",320)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PT",130)
+F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PW",100)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2,"LOCK",0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2,"HIDE",0)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("DisplayTextboxes_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+Program.Sub.DisplayTextboxes.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$WAW$}$1/25/2017 3:10:36 PM$}$False
+Program.Sub.Comments.End
