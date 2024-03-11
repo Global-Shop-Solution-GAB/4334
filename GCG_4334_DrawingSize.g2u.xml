@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxEdit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BorderStyle>None</BorderStyle>
+  <Pages>
+    <DefaultPage>
+      <Header>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Header>
+      <Footer>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Footer>
+      <PageSize>
+        <Width>0</Width>
+        <Height>0</Height>
+      </PageSize>
+    </DefaultPage>
+  </Pages>
+  <DisplayStrings />
+  <Selection>
+    <SelectionRect>
+      <Location>
+        <X>0</X>
+        <Y>172</Y>
+      </Location>
+      <Size>
+        <Width>24</Width>
+        <Height>2</Height>
+      </Size>
+      <X>0</X>
+      <Y>172</Y>
+      <Width>24</Width>
+      <Height>2</Height>
+    </SelectionRect>
+    <Options>UseColors OverwriteBlocks SelectLineOnTripleClick CopyLineWhenEmpty SelectWordOnCtrlClick</Options>
+  </Selection>
+  <Gutter>
+    <LineNumbersForeColor>WindowText</LineNumbersForeColor>
+    <Options>PaintLineNumbers PaintBookMarks PaintLineModificators</Options>
+  </Gutter>
+  <Margin>
+    <Visible>false</Visible>
+  </Margin>
+  <LineStyles />
+  <LineSeparator />
+  <Printing>
+    <Footer>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Footer>
+    <Header>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Header>
+  </Printing>
+  <WhiteSpace />
+  <TextSource>
+    <Position>
+      <X>0</X>
+      <Y>172</Y>
+    </Position>
+    <Lexer>
+      <Scheme>
+        <Author>Quantum Whale, LLC.</Author>
+        <Copyright>Copyright (c) 2004 - 2014 Quantum Whale LLC.</Copyright>
+        <FileType>gas</FileType>
+        <Version>1.5</Version>
+        <Styles>
+          <Style>
+            <Name>idents</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>numbers</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>reswords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>comments</Name>
+            <ForeColor>Green</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>xmlcomments</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>symbols</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>whitespace</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>strings</Name>
+            <ForeColor>Maroon</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>directives</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>htmlparams</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>syntax errors</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>codes nippets</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>255:180:228:180</BackColor>
+          </Style>
+          <Style>
+            <Name>GabReservedWords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabTokenWithBrackets</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabFunctionIntrinsicDebug</Name>
+            <ForeColor>White</ForeColor>
+            <BackColor>Red</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>GabVariable</Name>
+            <ForeColor>Teal</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabVariableSystemDefined</Name>
+            <ForeColor>Teal</ForeColor>
+            <FontStyle>Bold Italic</FontStyle>
+          </Style>
+          <Style>
+            <Name>GabGui</Name>
+            <ForeColor>OrangeRed</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabProgramSubStartEnd</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>LightGray</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+        </Styles>
+      </Scheme>
+    </Lexer>
+    <TextStrings>
+      <Lines>
+        <string>Program.Sub.Preflight.Start</string>
+        <string />
+        <string>Program.Sub.Preflight.End</string>
+        <string />
+        <string>Program.Sub.Main.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Main_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>'program will display two custom textboxes on inventory master</string>
+        <string>'these textboxes will display "drawing size" and "drawing rev"</string>
+        <string>'these values are pulled from the INV EXTRA table, user fields 1 and 6 respectively</string>
+        <string />
+        <string>'opening connection</string>
+        <string>F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)</string>
+        <string />
+        <string>'if the populate part hook fires</string>
+        <string>f.Intrinsic.Control.If(v.Caller.Hook,=,10125)</string>
+        <string>	'call the sub for adding the textboxes</string>
+        <string>	f.Intrinsic.Control.CallSub(addboxes)</string>
+        <string>'if the post save hook fires</string>
+        <string>f.Intrinsic.Control.ElseIf(v.Caller.Hook,=,10185)</string>
+        <string>	f.Intrinsic.Control.CallSub(postsave)</string>
+        <string>f.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Main_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	f.Intrinsic.Control.CallSub(unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Main.End</string>
+        <string />
+        <string>Program.Sub.Unload.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Unload_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string />
+        <string>'closing connection and ending program</string>
+        <string>F.ODBC.Connection!conx.Close</string>
+        <string>Function.Intrinsic.Control.End</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Unload_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	f.Intrinsic.Control.End</string>
+        <string />
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Unload.End</string>
+        <string />
+        <string>Program.Sub.AddBoxes.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("AddBoxes_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>v.Local.sdrawingsize.Declare(string)</string>
+        <string>v.Local.sdrawingrev.Declare(String)</string>
+        <string>v.Local.ssql.Declare(String)</string>
+        <string />
+        <string>'set the properties of the drawing size label</string>
+        <string>V.Passed.GAB-LBL-1.Set("Drawing Size")</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PL",190)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PT",112)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PW",100)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1,"HIDE",0)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PL",190)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PT",130)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PW",110)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1,"LOCK",0)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1,"HIDE",0)</string>
+        <string />
+        <string>'set the properties of the drawing rev label</string>
+        <string>V.Passed.GAB-LBL-2.Set("Drawing Rev")</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PL",320)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PT",112)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-LBL-2","PW",110)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2,"HIDE",0)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PL",320)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PT",130)</string>
+        <string>F.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PW",100)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2,"LOCK",0)</string>
+        <string>F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2,"HIDE",0)</string>
+        <string />
+        <string>'query for the drawing size and dawing rev</string>
+        <string>f.Intrinsic.String.Build("Select USER6, User1 from INV_EXTRA where PART = '{0}' and REV = '{1}' and LOCATION = '{2}'",v.Passed.000007,v.Passed.000008,v.Passed.000009,v.Local.ssql)</string>
+        <string>F.ODBC.Connection!conx.OpenRecordsetRO("rst",V.Local.ssql)</string>
+        <string>F.intrinsic.Control.If(V.ODBC.conx!rst.EOF,&lt;&gt;,True)</string>
+        <string>	v.Passed.GAB-TEXT-1.Set(v.ODBC.conx!rst.FieldValTrim!USER6)</string>
+        <string>	v.Passed.GAB-TEXT-2.Set(v.ODBC.conx!rst.FieldValTrim!USER1)</string>
+        <string>f.Intrinsic.Control.EndIf</string>
+        <string>f.ODBC.conx!rst.Close</string>
+        <string />
+        <string>'call the unload</string>
+        <string>f.Intrinsic.Control.CallSub(unload)</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("AddBoxes_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	f.Intrinsic.Control.CallSub(unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.AddBoxes.End</string>
+        <string />
+        <string>Program.Sub.PostSave.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("PostSave_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>v.Local.ssql.Declare(String)</string>
+        <string>V.Local.iCount.Declare(Long)</string>
+        <string />
+        <string>'update the information</string>
+        <string>f.Intrinsic.String.Build("Select * from INV_EXTRA where PART = '{0}' and REV = '{1}' and LOCATION = '{2}'",v.Passed.000007,v.Passed.000008,v.Passed.000009,v.Local.ssql)</string>
+        <string>F.ODBC.Connection!conx.OpenRecordsetRW("rst",V.Local.ssql)</string>
+        <string>'if something is found update the table</string>
+        <string>F.intrinsic.Control.If(V.ODBC.conx!rst.EOF,&lt;&gt;,True)</string>
+        <string>	F.ODBC.conx!rst.Set!USER6(V.Passed.GAB-TEXT-1)</string>
+        <string>	F.ODBC.conx!rst.Set!USER1(V.Passed.GAB-TEXT-2)	</string>
+        <string>	f.ODBC.conx!rst.Update</string>
+        <string>f.Intrinsic.Control.Else</string>
+        <string>	'otherwise add a new record with the user information</string>
+        <string>	f.ODBC.conx!rst.AddNew</string>
+        <string>	F.ODBC.conx!rst.Set!USER6(V.Passed.GAB-TEXT-1)</string>
+        <string>	F.ODBC.conx!rst.Set!USER1(V.Passed.GAB-TEXT-2)	</string>
+        <string>	'Added by FEQ. Custom table does not allow null for any field and there is no default set up, so when creating a new entry, we save a space in all empty fields</string>
+        <string>	F.ODBC.conx!rst.Set!USER2(" ")</string>
+        <string>	F.ODBC.conx!rst.Set!USER3(" ")</string>
+        <string>	F.ODBC.conx!rst.Set!USER4(" ")</string>
+        <string>	F.ODBC.conx!rst.Set!USER5(" ")</string>
+        <string>	F.Intrinsic.Control.For(V.Local.iCount, 7, 60, 1)</string>
+        <string>		F.ODBC.conx!rst.Set!USER[V.Local.iCount](" ")</string>
+        <string>	F.Intrinsic.Control.Next(V.Local.iCount)</string>
+        <string>	F.ODBC.conx!rst.Set!PART(V.Passed.000007)</string>
+        <string>	F.ODBC.conx!rst.Set!REV(V.Passed.000008)	</string>
+        <string>	F.ODBC.conx!rst.Set!LOCATION(V.Passed.000009)</string>
+        <string>	f.ODBC.conx!rst.Update</string>
+        <string>f.Intrinsic.Control.EndIf</string>
+        <string>f.ODBC.conx!rst.Close</string>
+        <string />
+        <string>'clear text</string>
+        <string>v.Passed.GAB-TEXT-1.Set("")</string>
+        <string>v.Passed.GAB-TEXT-2.Set("")</string>
+        <string />
+        <string>'call the unload sub</string>
+        <string>f.Intrinsic.Control.CallSub(unload)</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("PostSave_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4334_DrawingSize.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	f.Intrinsic.Control.CallSub(unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.PostSave.End</string>
+        <string />
+        <string>Program.Sub.Comments.Start</string>
+        <string>${$0$}$$}$WAW$}$1/25/2017 3:10:36 PM$}$False</string>
+        <string>Program.Sub.Comments.End</string>
+      </Lines>
+    </TextStrings>
+  </TextSource>
+  <Scrolling>
+    <WindowOriginY>118</WindowOriginY>
+    <Options>None</Options>
+  </Scrolling>
+  <Outlining>
+    <AllowOutlining>true</AllowOutlining>
+    <ImageSize>8</ImageSize>
+    <Ranges>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>0</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>2</Y>
+        </EndPoint>
+        <Text>Program.Sub.Preflight</Text>
+        <DisplayText>Program.Sub.Preflight</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>4</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>35</Y>
+        </EndPoint>
+        <Text>Program.Sub.Main</Text>
+        <DisplayText>Program.Sub.Main</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>37</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>58</Y>
+        </EndPoint>
+        <Text>Program.Sub.Unload</Text>
+        <DisplayText>Program.Sub.Unload</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>60</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>115</Y>
+        </EndPoint>
+        <Text>Program.Sub.AddBoxes</Text>
+        <DisplayText>Program.Sub.AddBoxes</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>117</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>170</Y>
+        </EndPoint>
+        <Text>Program.Sub.PostSave</Text>
+        <DisplayText>Program.Sub.PostSave</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>172</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>174</Y>
+        </EndPoint>
+        <Text>Program.Sub.Comments</Text>
+        <DisplayText>Program.Sub.Comments</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+    </Ranges>
+  </Outlining>
+  <HyperText />
+  <Spelling />
+  <Braces />
+</SyntaxEdit>
